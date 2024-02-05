@@ -1,18 +1,18 @@
 program zuftest;
-uses crt,dos; (* fÅr schînere Bildschirmausgabe und *)
-              (* um Dateien verwalten zu kînnen *)
+uses crt,dos; (* f√ºr sch√∂nere Bildschirmausgabe und *)
+              (* um Dateien verwalten zu k√∂nnen *)
 
 var aktion,definiert,ende,zliste_existiert,zuf_exist:integer;
-    i:longint; (* ZÑhler *)
+    i:longint; (* Z√§hler *)
     stat,aktuelle_datei:string;
 
-(* Signifikanzniveaus und Grenzen fÅr das Chiquadrat (bei 9 und 6 Freiheitsgraden) *)
+(* Signifikanzniveaus und Grenzen f√ºr das Chiquadrat (bei 9 und 6 Freiheitsgraden) *)
 const verf_signiveau:array[1..9] of integer = (1,5,10,25,50,75,90,95,99);
       grenze_9:array[1..9] of real = (21.6660, 16.9190, 14.6837, 11.3900, 8.3400, 5.9000, 4.16816, 3.32511, 2.08781);
       grenze_6:array[1..9] of real = (16.8119, 12.5916, 10.6446, 07.8400, 5.3500, 3.4500, 2.20413, 1.63539, 0.87209);
-                             (* hîhere Werte: leichter zu bestehen *)
+                             (* h√∂here Werte: leichter zu bestehen *)
 
-(* Routine fÅr zentrierte Textausgabe *)
+(* Routine f√ºr zentrierte Textausgabe *)
 procedure center(txt:string);
 var abstand:integer;
 BEGIN
@@ -34,17 +34,17 @@ END;
 (* Wartet auf Tastendruck *)
 procedure wart_auf_taste;
 BEGIN
-  center('DrÅcken Sie bitte eine Taste.');
+  center('Dr√ºcken Sie bitte eine Taste.');
   repeat
   until readkey<>'';
 END;
 
-(* Wichtige Routine: MOD fÅr Real-Zahlen *)
+(* Wichtige Routine: MOD f√ºr Real-Zahlen *)
 function real_mod(zahl,modul:real):real;
 var h1,h2,h3,h4,hmodul:real; (* Hilfsvariablen *)
 BEGIN
   h1:=int(zahl);
-  hmodul:=int(modul);  (* sicherstellen, da· Ganzzahl *)
+  hmodul:=int(modul);  (* sicherstellen, da√ü Ganzzahl *)
   h2:=h1/hmodul;
   h3:=frac(h2);
   h4:=int((h3*hmodul)+0.5); (* INT mit Rundung *)
@@ -73,17 +73,17 @@ BEGIN
   for i:=1 to 2 do
   BEGIN
     GotoXY(1,i);
-    zeilevoll(' ');  (* Lîscht die Zeile *)
+    zeilevoll(' ');  (* L√∂scht die Zeile *)
   END;
   GotoXY(4,2);write(txt);
   GotoXY(1,3);zeilevoll('_');
-  GotoXY(1,5); (* Der nÑchste Text erscheint in der 5. Zeile *)
+  GotoXY(1,5); (* Der n√§chste Text erscheint in der 5. Zeile *)
 END;
 
 (* Spezielle Routine, um Fehleingaben bei ZAHLEN abzufangen *)
 function zahleingabe(y,x:shortint;txt:string;bereichzeigen:shortint;min,max:longint;loeschen:shortint):longint;
 var input:string; (* Eingabe des Benutzers *)
-    fehler,ok:integer; (* PrÅfvariablen *)
+    fehler,ok:integer; (* Pr√ºfvariablen *)
     zahl:longint;
 BEGIN
   REPEAT
@@ -91,7 +91,7 @@ BEGIN
     if loeschen=1 then
     BEGIN
       GotoXY(1,y);
-      zeilevoll(' '); (* eventuelle Fehleingaben lîschen *)
+      zeilevoll(' '); (* eventuelle Fehleingaben l√∂schen *)
     END;
     GotoXY(x,y);write(txt); (* Aufforderung zeigen *)
     if bereichzeigen=1 then write('(',min,'-',max,') '); (* Eingabebereich zeigen *)
@@ -102,13 +102,13 @@ BEGIN
       if (zahl>=min) and (zahl<=max) then ok:=1;
     END;
   UNTIL ok=1;
-  zahleingabe:=zahl; (* Wert zurÅckgeben *)
+  zahleingabe:=zahl; (* Wert zur√ºckgeben *)
 END;
 
 (* Spezielle Routine, um Fehleingaben bei REAL-ZAHLEN abzufangen *)
 function realeingabe(y,x:shortint;txt:string;bereichzeigen:shortint;min,max:real;loeschen:shortint):real;
 var input:string; (* Eingabe des Benutzers *)
-    fehler,ok:integer; (* PrÅfvariablen *)
+    fehler,ok:integer; (* Pr√ºfvariablen *)
     zahl:real;
 BEGIN
   REPEAT
@@ -116,7 +116,7 @@ BEGIN
     if loeschen=1 then
     BEGIN
       GotoXY(1,y);
-      zeilevoll(' '); (* eventuelle Fehleingaben lîschen *)
+      zeilevoll(' '); (* eventuelle Fehleingaben l√∂schen *)
     END;
     GotoXY(x,y);write(txt); (* Aufforderung zeigen *)
     if bereichzeigen=1 then write('(',min:1:0,'-',max:13:0,') '); (* Eingabebereich zeigen *)
@@ -127,13 +127,13 @@ BEGIN
       if (zahl>=min) and (zahl<=max) then ok:=1;
     END;
   UNTIL ok=1;
-  realeingabe:=zahl; (* Wert zurÅckgeben *)
+  realeingabe:=zahl; (* Wert zur√ºckgeben *)
 END;
 
 (* Spezielle Routine, um Fehleingaben bei TEXT abzufangen *)
 function texteingabe(y,x:shortint;txt:string;bereichzeigen:shortint;min,max:longint;loeschen,typ:shortint):string;
 var input:string; (* Eingabe des Benutzers *)
-    vorkommen,ok:integer; (* PrÅfvariablen *)
+    vorkommen,ok:integer; (* Pr√ºfvariablen *)
 const unerlaubt:array[1..5] of char = (' ','\','.',':',';');
       (* unerlaubte Zeichen in Dateinamen (DOS-Handbuch S. 42) *)
 BEGIN
@@ -145,11 +145,11 @@ BEGIN
       zeilevoll(' '); (* Bahn frei *)
     END;
     GotoXY(x,y);write(txt); (* Aufforderung zeigen *)
-    if bereichzeigen=1 then write('(LÑnge ',min,'-',max,') '); (* erlaubte LÑnge des Texts *)
+    if bereichzeigen=1 then write('(L√§nge ',min,'-',max,') '); (* erlaubte L√§nge des Texts *)
     readln(input);
     if (length(input)>=min) and (length(input)<=max) then ok:=1;
 
-    (* TYP 1 bedeutet Dateiname: auf einige unerlaubte Zeichen prÅfen *)
+    (* TYP 1 bedeutet Dateiname: auf einige unerlaubte Zeichen pr√ºfen *)
     (* siehe DOS-Handbuch unter "Dateinamen, Konventionen" (S. 42) *)
     if typ=1 then
     BEGIN
@@ -166,10 +166,10 @@ BEGIN
       END;
     END;
   UNTIL ok=1;
-  texteingabe:=input; (* Wert zurÅckgeben *)
+  texteingabe:=input; (* Wert zur√ºckgeben *)
 END;
 
-(* Die Zufallszahlen werden zwischengespeichert. Diese Funktion prÅft, ob *)
+(* Die Zufallszahlen werden zwischengespeichert. Diese Funktion pr√ºft, ob *)
 (* genug Platz auf der Festplatte frei ist. *)
 function wievielezufaza:longint;
 var zahl,benoetigt:longint;
@@ -179,8 +179,8 @@ BEGIN
                           (* maximaler Bedarf: 2935 KB = 2,9 MB *)
   if benoetigt>diskfree(0) then
   BEGIN
-    writeln(' Die Zufallszahlen benîtigen ',benoetigt div 1024,' KB freien Speicher auf der Festplatte.');
-    writeln(' Bitte wÑhlen Sie eine kleinere Zahl!');
+    writeln(' Die Zufallszahlen ben√∂tigen ',benoetigt div 1024,' KB freien Speicher auf der Festplatte.');
+    writeln(' Bitte w√§hlen Sie eine kleinere Zahl!');
     REPEAT
       zahl:=zahleingabe(21,2,'Wieviele Zufallszahlen sollen erzeugt werden? ',1,10,1000000,1);
       benoetigt:=zahl*3+5000;
@@ -189,13 +189,13 @@ BEGIN
   wievielezufaza:=zahl;
 END;
 
-(* Datei-Routinen: PrÅfen, ob bestimmte Datei existiert *)
+(* Datei-Routinen: Pr√ºfen, ob bestimmte Datei existiert *)
 (*                 Namen zum Speichern eingeben *)
-(*                 Namen zum ôffnen eingeben *)
+(*                 Namen zum √ñffnen eingeben *)
 
-(* Aus TurboPascal Åbernommen (siehe Beispiel zu "reset"! *)
+(* Aus TurboPascal √ºbernommen (siehe Beispiel zu "reset"! *)
 function datei_existiert(dateiname:string):boolean;
-         (* Gibt WAHR zurÅck, wenn die Datei existiert, sonst FALSCH *)
+         (* Gibt WAHR zur√ºck, wenn die Datei existiert, sonst FALSCH *)
 var dat:file;
 BEGIN
   {$I-}
@@ -209,19 +209,19 @@ END;                      (* wahr, wenn ein Name angegeben wurde *)
 (* Die folgende Funktion fragt nach einem Dateinamen zum Speichern *)
 function name_zum_speichern(y,x:shortint;txt,endung:string):string;
 var input:string;
-    i,ok:shortint; (* ZÑhler, OK=1 hei·t alles klar *)
+    i,ok:shortint; (* Z√§hler, OK=1 hei√üt alles klar *)
 BEGIN
   repeat
     GotoXY(1,y);
-    zeilevoll(' ');  (* aufrÑumen *)
+    zeilevoll(' ');  (* aufr√§umen *)
     GotoXY(x+length(txt)+8,y);
     writeln('.',endung);  (* Endung schreiben *)
     input:=texteingabe(y,x,txt,0,1,8,0,1);
     for i:=1 to length(input) do input[i]:=upcase(input[i]);
     input:=concat(input,'.',endung);
-    (* Name in Gro·buchstaben und mit Endung *)
+    (* Name in Gro√übuchstaben und mit Endung *)
     GotoXY(1,y);
-    zeilevoll(' ');  (* aufrÑumen *)
+    zeilevoll(' ');  (* aufr√§umen *)
     GotoXY(x,y);
     writeln(txt,input);
     (* aber: Existiert die Datei schon?? *)
@@ -234,7 +234,7 @@ BEGIN
     BEGIN
       ok:=1; (* alles klar! *)
       GotoXY(1,y+1);
-      zeilevoll(' '); (* eventuell die Fehlermeldung lîschen *)
+      zeilevoll(' '); (* eventuell die Fehlermeldung l√∂schen *)
     END;
   until ok=1;
   name_zum_speichern:=input;
@@ -243,7 +243,7 @@ END;
 (* Fragt nach dem Namen einer zu ladenden Datei *)
 function name_zum_laden(txt,endung:string):string;
 var input,suchen,hilfsvar:string;
-    ii,dateinummer,ok,max:shortint; (* ZÑhler, OK=1 hei·t alles klar *)
+    ii,dateinummer,ok,max:shortint; (* Z√§hler, OK=1 hei√üt alles klar *)
     dateieintrag:searchrec; (* siehe Onlinehilfe zu FindFirst & SearchRec *)
     dateien:array[1..100] of string[12];
 
@@ -269,14 +269,14 @@ BEGIN
       max:=ii;
       if DosError=0 then
       BEGIN
-        writeln('     15    nÑchste Seite...');
+        writeln('     15    n√§chste Seite...');
         max:=15;
       END;
       dateinummer:=zahleingabe(22,4,'Geben Sie die Nummer der Datei ein ',1,1,max,1);
       if dateinummer=15 then
       BEGIN
         clrscr;
-        hilfsvar:=concat(txt,' nÑchste Seite');
+        hilfsvar:=concat(txt,' n√§chste Seite');
         status(hilfsvar);
         writeln('   Nummer  Dateiname');
         ok:=0;
@@ -290,7 +290,7 @@ BEGIN
   name_zum_laden:=dateien[dateinummer];
 END;
 
-(* PrÅft, ob es eine ENDUNG-Datei gibt *)
+(* Pr√ºft, ob es eine ENDUNG-Datei gibt *)
 function dat_pruefen(endung:string):integer;
 var suchen:string;
     dateieintrag:searchrec;
@@ -312,47 +312,47 @@ END;
 procedure poker;
 var txt,generator,kommentar,ergebnis_datei,zuf_datei:string;
     signiveau,signiv_index,noch_ok,z,i:integer; (* z: erzeugte Zufallszahl *)
-    umfang,zj:longint; (* zj: ZÑhler der Zufallszahlen *)
+    umfang,zj:longint; (* zj: Z√§hler der Zufallszahlen *)
     aktuelle,fortschritt,diff:integer; (* Wieviel % der Zahlen wurden getestet? *)
-    dat,erg:text; (* Zum ôffnen der Datei *)
+    dat,erg:text; (* Zum √ñffnen der Datei *)
     chiquadrat,abweich,grenze:real;
-    haeufigkeit:array[1..7] of longint; (* HÑufigkeiten der 7 Quintupeltypen *)
-    h_in_tupel:array[0..9] of integer; (* HÑufigkeiten der 10 Ziffern in den Tupeln *)
-    anz_der_h:array[0..5] of integer; (* Anzahl der 6 HÑufigkeiten *)
+    haeufigkeit:array[1..7] of longint; (* H√§ufigkeiten der 7 Quintupeltypen *)
+    h_in_tupel:array[0..9] of integer; (* H√§ufigkeiten der 10 Ziffern in den Tupeln *)
+    anz_der_h:array[0..5] of integer; (* Anzahl der 6 H√§ufigkeiten *)
     abs_erw:array[1..7] of real; (* erwartet mal n *)
 
 const erwartet:array[1..7] of real = (0.3024,0.5040,0.1080,0.0720,0.0090,0.0045,0.0001);
 
 BEGIN
   clrscr;
-  txt:=concat('Poker-Test -- Test auf UnabhÑngigkeit');
+  txt:=concat('Poker-Test -- Test auf Unabh√§ngigkeit');
   status(txt);
-  writeln(' Dieser Test prÅft die Zufallsziffern einer Datei auf UnabhÑngigkeit.');
+  writeln(' Dieser Test pr√ºft die Zufallsziffern einer Datei auf Unabh√§ngigkeit.');
   writeln(' Das Ergebnis wird auf dem Bildschirm angezeigt und in eine Datei geschrieben.');
-  ergebnis_datei:=name_zum_speichern(8,2,'WÑhlen Sie einen Namen fÅr die Datei: ','TXT');
+  ergebnis_datei:=name_zum_speichern(8,2,'W√§hlen Sie einen Namen f√ºr die Datei: ','TXT');
   writeln;
   clrscr;
-  status('Zufallszahlendatei wÑhlen');
+  status('Zufallszahlendatei w√§hlen');
   if zliste_existiert<>0 then
   BEGIN
     writeln(' Wollen Sie die aktuelle Datei (',aktuelle_datei,') untersuchen oder eine andere?');
-    aktuelle:=zahleingabe(7,2,'Geben Sie 1 ein, wenn Sie die aktuelle Datei untersuchen mîchten, sonst 0 ',0,0,1,1);
+    aktuelle:=zahleingabe(7,2,'Geben Sie 1 ein, wenn Sie die aktuelle Datei untersuchen m√∂chten, sonst 0 ',0,0,1,1);
     if aktuelle=1 then
     BEGIN
       zuf_datei:=aktuelle_datei;
     END else
     BEGIN
-      zuf_datei:=name_zum_laden('Zufallszahlendatei îffnen','ZUF');
+      zuf_datei:=name_zum_laden('Zufallszahlendatei √∂ffnen','ZUF');
     END;
   END else
   BEGIN
-    zuf_datei:=name_zum_laden('Zufallszahlendatei îffnen','ZUF');
+    zuf_datei:=name_zum_laden('Zufallszahlendatei √∂ffnen','ZUF');
   END;
   clrscr;
-  status('Pokertest auf UnabhÑngigkeit -- Parameter');
+  status('Pokertest auf Unabh√§ngigkeit -- Parameter');
 
-  (* Datei îffnen und prÅfen *)
-  write(' Zufallszahlen-Datei wird geîffnet... ');
+  (* Datei √∂ffnen und pr√ºfen *)
+  write(' Zufallszahlen-Datei wird ge√∂ffnet... ');
   assign(dat,zuf_datei);
   reset(dat);
   readln(dat,txt);
@@ -361,7 +361,7 @@ BEGIN
     writeln;
     center('*** Falsche Datei! ***');
   END else
-  BEGIN (* ich rÅcke nicht weiter ein: ELSE-Teil des IF-Blocks *)
+  BEGIN (* ich r√ºcke nicht weiter ein: ELSE-Teil des IF-Blocks *)
 
   aktuelle_datei:=zuf_datei;
   zliste_existiert:=1;
@@ -378,7 +378,7 @@ BEGIN
 
   assign(erg,ergebnis_datei); (* Ergebnisdatei *)
   rewrite(erg);
-  writeln(erg,' Ergebnis des Pokertests fÅr ',umfang);
+  writeln(erg,' Ergebnis des Pokertests f√ºr ',umfang);
   writeln(erg,' Zufallszahlen ',generator,'.');
   writeln(erg,' Kommentar zum Generator:');
   writeln(erg,' ',kommentar);
@@ -387,20 +387,20 @@ BEGIN
   writeln;
   for i:=1 to 9 do
   BEGIN
-    write('    ',i,':  Signifikanzniveau  ',verf_signiveau[i]:2,'%,  Grenze fÅr ',chq,' = ',grenze_6[i]:7:4);
+    write('    ',i,':  Signifikanzniveau  ',verf_signiveau[i]:2,'%,  Grenze f√ºr ',chq,' = ',grenze_6[i]:7:4);
     if i=1 then write('  einfach, unkritisch');
-    if i=2 then write('  Åblicher Wert');
+    if i=2 then write('  √ºblicher Wert');
     if i=9 then write('  schwierig, kritisch');
     writeln;
   END;
 
-  signiv_index:=zahleingabe(20,2,'WÑhlen Sie das Signifikanzniveau: ',1,1,9,1);
+  signiv_index:=zahleingabe(20,2,'W√§hlen Sie das Signifikanzniveau: ',1,1,9,1);
   signiveau:=verf_signiveau[signiv_index];
   grenze:=grenze_6[signiv_index];
 
   clrscr;
-  status('Die HÑufigkeiten der 7 Quintupeltypen werden gezÑhlt...');
-  writeln(' Quintupeltyp  absolute HÑufigkeit  erwartete');
+  status('Die H√§ufigkeiten der 7 Quintupeltypen werden gez√§hlt...');
+  writeln(' Quintupeltyp  absolute H√§ufigkeit  erwartete');
   writeln(' --------------------------------------------');
   writeln('    abcde');
   writeln('    aabcd');
@@ -423,7 +423,7 @@ BEGIN
   BEGIN
     for i:=0 to 9 do
     BEGIN
-      h_in_tupel[i]:=0; (* HÑufigkeiten einzelner Zahlen im Tupel 0 setzen *)
+      h_in_tupel[i]:=0; (* H√§ufigkeiten einzelner Zahlen im Tupel 0 setzen *)
     END;
     for i:=0 to 5 do
     BEGIN
@@ -432,13 +432,13 @@ BEGIN
     for i:=1 to 5 do
     BEGIN
       readln(dat,z);  (* komplettes Tupel nacheinander einlesen *)
-      inc(h_in_tupel[z]);  (* ZiffernhÑufigkeiten speichern *)
+      inc(h_in_tupel[z]);  (* Ziffernh√§ufigkeiten speichern *)
     END;
 
     (* Tupeltypbestimmung vorbereiten*)
     for i:=0 to 9 do
     BEGIN
-      inc(anz_der_h[h_in_tupel[i]]); (* Anzahl der HÑufigkeiten ermitteln *)
+      inc(anz_der_h[h_in_tupel[i]]); (* Anzahl der H√§ufigkeiten ermitteln *)
     END;
 
     (* Tupeltyp durch Aussortieren bestimmen *)
@@ -474,7 +474,7 @@ BEGIN
   writeln;
   wart_auf_taste;
 
-  (* Berechnung des Chi-Quadrats fÅr den POKER-Test *)
+  (* Berechnung des Chi-Quadrats f√ºr den POKER-Test *)
   clrscr;
   txt:=concat('Berechne das beobachtete ',chq,' beim Pokertest...');
   status(txt);
@@ -487,11 +487,11 @@ BEGIN
   END;
   writeln(' Beobachtetes  ',chq,' = ',chiquadrat:8:4);
   status('Beurteilung des Generators durch den Pokertest');
-  GotoXY(1,9); (* sonst wird das andere gelîscht *)
-  writeln(' Grenze fÅr das Signifikanzniveau ',signiveau:2,'% ist ',grenze:8:4);
+  GotoXY(1,9); (* sonst wird das andere gel√∂scht *)
+  writeln(' Grenze f√ºr das Signifikanzniveau ',signiveau:2,'% ist ',grenze:8:4);
   writeln;
 
-  writeln(erg,' Ziffer  absolute HÑufigkeit  erwartete');
+  writeln(erg,' Ziffer  absolute H√§ufigkeit  erwartete');
   writeln(erg,' --------------------------------------');
   for i:=1 to 7 do
   BEGIN
@@ -500,7 +500,7 @@ BEGIN
   writeln(erg);
   writeln(erg,' Beobachtetes ',chq,' =             ',chiquadrat:8:4);
   writeln(erg);
-  writeln(erg,' Grenze fÅr das ',signiveau:2,'%-Niveau ist ',grenze:8:4);
+  writeln(erg,' Grenze f√ºr das ',signiveau:2,'%-Niveau ist ',grenze:8:4);
 
   if chiquadrat>grenze then
   BEGIN
@@ -514,7 +514,7 @@ BEGIN
     writeln(erg,' Der Generator hat den Test auf dem ',signiveau:2,'%-Niveau bestanden.');
   END;
 
-  (* Welches Signifikanz-Niveau hÑtte den Generator noch angenommen *)
+  (* Welches Signifikanz-Niveau h√§tte den Generator noch angenommen *)
   noch_ok:=0;
   for i:=1 to 9 do
   BEGIN
@@ -528,12 +528,12 @@ BEGIN
   writeln(erg);
   if noch_ok=0 then
   BEGIN
-    writeln(' Der Generator wÑre von keinem Signifikanzniveau < 1% angenommen worden.');
-    writeln(erg,' Der Generator wÑre von keinem Signifikanzniveau < 1% angenommen worden.');
+    writeln(' Der Generator w√§re von keinem Signifikanzniveau < 1% angenommen worden.');
+    writeln(erg,' Der Generator w√§re von keinem Signifikanzniveau < 1% angenommen worden.');
   END else
   BEGIN
-    writeln(' Ein Signifikanzniveau von ',verf_signiveau[noch_ok],'% hÑtte den Generator noch angenommen.');
-    writeln(erg,' Ein Signifikanzniveau von ',verf_signiveau[noch_ok],'% hÑtte den Generator noch angenommen.');
+    writeln(' Ein Signifikanzniveau von ',verf_signiveau[noch_ok],'% h√§tte den Generator noch angenommen.');
+    writeln(erg,' Ein Signifikanzniveau von ',verf_signiveau[noch_ok],'% h√§tte den Generator noch angenommen.');
   END;
   close(erg);
   END; (* vom IF-Block! *)
@@ -546,43 +546,43 @@ END;
 procedure chiquad;
 var txt,generator,kommentar,ergebnis_datei,zuf_datei:string;
     signiveau,signiv_index,noch_ok,z:integer; (* z: erzeugte Zufallszahl *)
-    umfang,zj:longint; (* zj: ZÑhler der Zufallszahlen *)
+    umfang,zj:longint; (* zj: Z√§hler der Zufallszahlen *)
     aktuelle,fortschritt,diff:integer; (* Wieviel % der Zahlen wurden getestet? *)
-    dat,erg:text; (* Zum ôffnen der Datei *)
-    haeufigkeit:array[0..9] of longint; (* HÑufigkeit der 10 Ziffern *)
+    dat,erg:text; (* Zum √ñffnen der Datei *)
+    haeufigkeit:array[0..9] of longint; (* H√§ufigkeit der 10 Ziffern *)
     erwartet,chiquadrat,abweich,grenze:real;
 
 BEGIN
   clrscr;
   txt:=concat(chq,' (Chi-Quadrat) Anpassungstest auf Gleichverteilung');
   status(txt);
-  writeln(' Dieser Test prÅft die Zufallsziffern einer Datei auf Gleichverteilung.');
+  writeln(' Dieser Test pr√ºft die Zufallsziffern einer Datei auf Gleichverteilung.');
   writeln(' Das Ergebnis wird auf dem Bildschirm angezeigt und in eine Datei geschrieben.');
-  ergebnis_datei:=name_zum_speichern(8,2,'WÑhlen Sie einen Namen fÅr die Datei: ','TXT');
+  ergebnis_datei:=name_zum_speichern(8,2,'W√§hlen Sie einen Namen f√ºr die Datei: ','TXT');
   writeln;
   clrscr;
-  status('Zufallszahlendatei wÑhlen');
+  status('Zufallszahlendatei w√§hlen');
   if zliste_existiert<>0 then
   BEGIN
     writeln(' Wollen Sie die aktuelle Datei (',aktuelle_datei,') untersuchen oder eine andere?');
-    aktuelle:=zahleingabe(7,2,'Geben Sie 1 ein, wenn Sie die aktuelle Datei untersuchen mîchten, sonst 0 ',0,0,1,1);
+    aktuelle:=zahleingabe(7,2,'Geben Sie 1 ein, wenn Sie die aktuelle Datei untersuchen m√∂chten, sonst 0 ',0,0,1,1);
     if aktuelle=1 then
     BEGIN
       zuf_datei:=aktuelle_datei;
     END else
     BEGIN
-      zuf_datei:=name_zum_laden('Zufallszahlendatei îffnen','ZUF');
+      zuf_datei:=name_zum_laden('Zufallszahlendatei √∂ffnen','ZUF');
     END;
   END else
   BEGIN
-    zuf_datei:=name_zum_laden('Zufallszahlendatei îffnen','ZUF');
+    zuf_datei:=name_zum_laden('Zufallszahlendatei √∂ffnen','ZUF');
   END;
 
   clrscr;
   status('Anpassungstest auf Gleichverteilung -- Parameter');
 
-  (* Datei îffnen und prÅfen *)
-  write(' Zufallszahlen-Datei wird geîffnet... ');
+  (* Datei √∂ffnen und pr√ºfen *)
+  write(' Zufallszahlen-Datei wird ge√∂ffnet... ');
   assign(dat,zuf_datei);
   reset(dat);
   readln(dat,txt);
@@ -591,7 +591,7 @@ BEGIN
     writeln;
     center('*** Falsche Datei! ***');
   END else
-  BEGIN (* ich rÅcke nicht weiter ein: ELSE-Teil des IF-Blocks *)
+  BEGIN (* ich r√ºcke nicht weiter ein: ELSE-Teil des IF-Blocks *)
 
   aktuelle_datei:=zuf_datei;
   zliste_existiert:=1;
@@ -608,7 +608,7 @@ BEGIN
 
   assign(erg,ergebnis_datei); (* Egebnisdatei *)
   rewrite(erg);
-  writeln(erg,' Ergebnis des ',chq,'-Anpassungs-Tests fÅr ',umfang);
+  writeln(erg,' Ergebnis des ',chq,'-Anpassungs-Tests f√ºr ',umfang);
   writeln(erg,' Zufallszahlen ',generator,'.');
   writeln(erg,' Kommentar zum Generator:');
   writeln(erg,' ',kommentar);
@@ -617,22 +617,22 @@ BEGIN
   writeln;
   for i:=1 to 9 do
   BEGIN
-    write('    ',i,':  Signifikanzniveau  ',verf_signiveau[i]:2,'%,  Grenze fÅr ',chq,' = ',grenze_9[i]:8:4);
+    write('    ',i,':  Signifikanzniveau  ',verf_signiveau[i]:2,'%,  Grenze f√ºr ',chq,' = ',grenze_9[i]:8:4);
     if i=1 then write('  einfach, unkritisch');
-    if i=2 then write('  Åblicher Wert');
+    if i=2 then write('  √ºblicher Wert');
     if i=9 then write('  schwierig, kritisch');
     writeln;
   END;
 
-  signiv_index:=zahleingabe(20,2,'WÑhlen Sie das Signifikanzniveau: ',1,1,9,1);
+  signiv_index:=zahleingabe(20,2,'W√§hlen Sie das Signifikanzniveau: ',1,1,9,1);
   signiveau:=verf_signiveau[signiv_index];
   grenze:=grenze_9[signiv_index];
 
   clrscr;
-  status('Die HÑufigkeiten der Ziffern 0 bis 9 werden gezÑhlt...');
-  writeln(' Ziffer  absolute HÑufigkeit  erwartete');
+  status('Die H√§ufigkeiten der Ziffern 0 bis 9 werden gez√§hlt...');
+  writeln(' Ziffer  absolute H√§ufigkeit  erwartete');
   writeln(' --------------------------------------');
-  erwartet:=umfang/10; (* Erwartete HÑufigkeiten (fÅr alle Ziffern gleich *)
+  erwartet:=umfang/10; (* Erwartete H√§ufigkeiten (f√ºr alle Ziffern gleich *)
 
   for i:=0 to 9 do
   BEGIN
@@ -644,7 +644,7 @@ BEGIN
   for zj:=1 to umfang do
   BEGIN
     readln(dat,z); (* Zufallszahl einlesen *)
-    inc(haeufigkeit[z]); (* HÑufigkeit der Ziffern entsprechend +1 *)
+    inc(haeufigkeit[z]); (* H√§ufigkeit der Ziffern entsprechend +1 *)
 
     fortschritt:=(zj*100) div umfang;
     if fortschritt<> diff then
@@ -677,11 +677,11 @@ BEGIN
   writeln;
   txt:=concat('Beurteilung des Generators durch den ',chq,'-Anpassungs-Test');
   status(txt);
-  GotoXY(1,9); (* sonst wird das andere gelîscht *)
-  writeln(' Grenze fÅr das Signifikanzniveau ',signiveau,'% ist ',grenze:8:4);
+  GotoXY(1,9); (* sonst wird das andere gel√∂scht *)
+  writeln(' Grenze f√ºr das Signifikanzniveau ',signiveau,'% ist ',grenze:8:4);
   writeln;
 
-  writeln(erg,' Ziffer  absolute HÑufigkeit  erwartete');
+  writeln(erg,' Ziffer  absolute H√§ufigkeit  erwartete');
   writeln(erg,' --------------------------------------');
   for i:=0 to 9 do
   BEGIN
@@ -690,7 +690,7 @@ BEGIN
   writeln(erg);
   writeln(erg,' Beobachtetes ',chq,' =             ',chiquadrat:8:4);
   writeln(erg);
-  writeln(erg,' Grenze fÅr das ',signiveau:2,'%-Niveau ist ',grenze:8:4);
+  writeln(erg,' Grenze f√ºr das ',signiveau:2,'%-Niveau ist ',grenze:8:4);
 
   if chiquadrat>grenze then
   BEGIN
@@ -704,7 +704,7 @@ BEGIN
     writeln(erg,' Der Generator hat den Test auf dem ',signiveau:2,'%-Niveau bestanden.');
   END;
 
-  (* Welches Sig-Niveau hÑtte den Generator noch angenommen *)
+  (* Welches Sig-Niveau h√§tte den Generator noch angenommen *)
 
   noch_ok:=0;
   for i:=1 to 9 do
@@ -719,12 +719,12 @@ BEGIN
   writeln(erg);
   if noch_ok=0 then
   BEGIN
-    writeln(' Der Generator wÑre von keinem Signifikanzniveau < 1% angenommen worden.');
-    writeln(erg,' Der Generator wÑre von keinem Signifikanzniveau < 1% angenommen worden.');
+    writeln(' Der Generator w√§re von keinem Signifikanzniveau < 1% angenommen worden.');
+    writeln(erg,' Der Generator w√§re von keinem Signifikanzniveau < 1% angenommen worden.');
   END else
   BEGIN
-    writeln(' Ein Signifikanzniveau von ',verf_signiveau[noch_ok],'% hÑtte den Generator noch angenommen.');
-    writeln(erg,' Ein Signifikanzniveau von ',verf_signiveau[noch_ok],'% hÑtte den Generator noch angenommen.');
+    writeln(' Ein Signifikanzniveau von ',verf_signiveau[noch_ok],'% h√§tte den Generator noch angenommen.');
+    writeln(erg,' Ein Signifikanzniveau von ',verf_signiveau[noch_ok],'% h√§tte den Generator noch angenommen.');
   END;
   close(erg);
   END; (* vom IF-Block! *)
@@ -732,7 +732,7 @@ BEGIN
   wart_auf_taste;
 END;
 
-(* schreibt einen Kopf fÅr die ZUF-Datei *)
+(* schreibt einen Kopf f√ºr die ZUF-Datei *)
 procedure datei_kopf(var dat:text;umfang:longint;generator,kommentar:string);
 BEGIN
   writeln(dat,'Hinweise zur Datei');
@@ -748,14 +748,14 @@ END;
 (* in einer Datei gespeichert. Die Testprozeduren laden die Datei und *)
 (* testen die Zahlen. *)
 
-(* Der Folgen-VerlÑngerungs-Generator *)
+(* Der Folgen-Verl√§ngerungs-Generator *)
 procedure folgen;
-var anz,z,i,j:integer; (* i und j: ZÑhler *)
+var anz,z,i,j:integer; (* i und j: Z√§hler *)
                        (* Anz: Anzahl der Folgen *)
                        (* z: erzeugte Zufallszahl *)
-    periode,umfang,zj:longint; (* zj: ZÑhler der Zufallszahlen *)
+    periode,umfang,zj:longint; (* zj: Z√§hler der Zufallszahlen *)
                                (* Umfang: Anzahl der Zufallszahlen *)
-    len:array[1..10] of integer; (* LÑnge der verschiedenen Folgen *)
+    len:array[1..10] of integer; (* L√§nge der verschiedenen Folgen *)
     folge:array[1..4,1..30] of integer; (* Zahlen der Folgen *)
     jj:array[1..30] of integer; (* Gibt an, wo ich mich in welcher Folge befinde *)
     fortschritt,diff:integer; (* Wieviel % der Zahlen wurden erzeugt? *)
@@ -764,28 +764,28 @@ var anz,z,i,j:integer; (* i und j: ZÑhler *)
 
 BEGIN
   clrscr;
-  status('VerlÑngerung von Folgen -- Parameter');
-  writeln(' Sie kînnen die Anzahl und die LÑnge der Folgen festlegen. Dann mÅssen');
+  status('Verl√§ngerung von Folgen -- Parameter');
+  writeln(' Sie k√∂nnen die Anzahl und die L√§nge der Folgen festlegen. Dann m√ºssen');
   writeln(' Sie die einzelnen Zahlen der Folgen eingeben.');
   writeln(' (Die Basis des Zahlensystems ist auf 10 festgelegt!)');writeln;
   anz:=zahleingabe(9,2,'Anzahl der Folgen ',1,2,4,1);
   periode:=1;
   for i:=1 to anz do
   BEGIN
-    str(i:1,itext); (* Nummer der Folge mu· angezeigt werden *)
-    txt:=concat('LÑnge der Folge ',itext,' ');
+    str(i:1,itext); (* Nummer der Folge mu√ü angezeigt werden *)
+    txt:=concat('L√§nge der Folge ',itext,' ');
     len[i]:=zahleingabe(10+i,2,txt,1,2,30,1);
     periode:=periode*len[i];
   END;
   clrscr;
-  status('VerlÑngerung von Folgen -- Parameter -- Zahlen der Folgen');
-  writeln(' Die Periode wird vermutlich ',periode,' betragen, wenn der GGT der LÑngen');
+  status('Verl√§ngerung von Folgen -- Parameter -- Zahlen der Folgen');
+  writeln(' Die Periode wird vermutlich ',periode,' betragen, wenn der GGT der L√§ngen');
   writeln(' gleich 1 ist.');
-  writeln(' Nun mÅssen Sie die Zahlen der ',anz,' Folgen eingeben. Benutzen Sie Dezimalziffern.');
+  writeln(' Nun m√ºssen Sie die Zahlen der ',anz,' Folgen eingeben. Benutzen Sie Dezimalziffern.');
   for i:=1 to anz do
   BEGIN
     GotoXY(2,9+i);
-    write('Folge ',i,' LÑnge ',len[i]);
+    write('Folge ',i,' L√§nge ',len[i]);
     for j:=1 to len[i] do
     BEGIN
       folge[i,j]:=zahleingabe(9+i,20+(j*2),'',0,0,9,0);
@@ -794,19 +794,19 @@ BEGIN
   writeln;
   umfang:=wievielezufaza;
   clrscr;
-  status('VerlÑngerung von Folgen -- Erzeugung der Zufallszahlen');
+  status('Verl√§ngerung von Folgen -- Erzeugung der Zufallszahlen');
 
-  dateiname:=name_zum_speichern(5,2,'WÑhlen Sie einen Namen fÅr die Datei: ','ZUF');
+  dateiname:=name_zum_speichern(5,2,'W√§hlen Sie einen Namen f√ºr die Datei: ','ZUF');
   GotoXY(2,7);writeln('Geben Sie einen Kommentar zu diesem Generator ein:');
   kommentar:=texteingabe(9,2,'-> ',0,1,75,1,0);
 
   aktuelle_datei:=dateiname;
   zliste_existiert:=1;
   assign(dat,dateiname);
-  rewrite(dat); (* Die Datei zum Speichern wurde angelegt und geîffnet *)
-  datei_kopf(dat,umfang,'Folgen-VerlÑngerungs-Generator',kommentar);
+  rewrite(dat); (* Die Datei zum Speichern wurde angelegt und ge√∂ffnet *)
+  datei_kopf(dat,umfang,'Folgen-Verl√§ngerungs-Generator',kommentar);
 
-  (* PROGRAMM DES FOLGEN-VERLéNGERUNGS-GENRATORS *)
+  (* PROGRAMM DES FOLGEN-VERL√ÑNGERUNGS-GENRATORS *)
 
   for i:=1 to 30 do
   BEGIN
@@ -819,7 +819,7 @@ BEGIN
     z:=0;
     for i:=1 to anz do
     BEGIN
-      jj[i]:=jj[i]+1; (* ZÑhler innerhalb der Folgen checken *)
+      jj[i]:=jj[i]+1; (* Z√§hler innerhalb der Folgen checken *)
       if jj[i]>len[i] then jj[i]:=1;
     END;
     for i:=1 to anz do
@@ -844,7 +844,7 @@ END;
 
 procedure tubo_random;
 var z,obrandomize:integer; (* z: erzeugte Zufallszahl *)
-    umfang,zj:longint; (* zj: ZÑhler der Zufallszahlen *)
+    umfang,zj:longint; (* zj: Z√§hler der Zufallszahlen *)
     fortschritt,diff:integer; (* Wieviel % der Zahlen wurden erzeugt? *)
     dat:text; (* zum Speichern *)
     dateiname,kommentar:string;
@@ -852,20 +852,20 @@ var z,obrandomize:integer; (* z: erzeugte Zufallszahl *)
 BEGIN
   clrscr;
   status('TurboPascals interner Zufallsgenerator RANDOM -- Parameter');
-  writeln(' Sie kînnen nur festlegen, ob RANDOMIZE ausgefÅhrt werden soll oder nicht.');
+  writeln(' Sie k√∂nnen nur festlegen, ob RANDOMIZE ausgef√ºhrt werden soll oder nicht.');
   writeln(' Der Generator erzeugt ganze Zahlen aus [0; 9].');writeln;
-  obrandomize:=zahleingabe(8,2,'Geben Sie 1 ein, wenn RANDOMIZE ausgefÅhrt werden soll, sonst 0 ',0,0,1,1);
+  obrandomize:=zahleingabe(8,2,'Geben Sie 1 ein, wenn RANDOMIZE ausgef√ºhrt werden soll, sonst 0 ',0,0,1,1);
   umfang:=wievielezufaza;
   clrscr;
   status('TurboPascals RANDOM -- Erzeugung der Zufallszahlen');
-  dateiname:=name_zum_speichern(5,2,'WÑhlen Sie einen Namen fÅr die Datei: ','ZUF');
+  dateiname:=name_zum_speichern(5,2,'W√§hlen Sie einen Namen f√ºr die Datei: ','ZUF');
   GotoXY(2,7);writeln('Geben Sie einen Kommentar zu diesem Generator ein:');
   kommentar:=texteingabe(9,2,'-> ',0,1,75,1,0);
 
   aktuelle_datei:=dateiname;
   zliste_existiert:=1;
   assign(dat,dateiname);
-  rewrite(dat); (* Die Datei zum Speichern wurde angelegt und geîffnet *)
+  rewrite(dat); (* Die Datei zum Speichern wurde angelegt und ge√∂ffnet *)
   datei_kopf(dat,umfang,'TurboPascal-Generator',kommentar);
 
   (* PROGRAMM DES TurboPascal-INTERNEN GENRATORS *)
@@ -893,7 +893,7 @@ END;
 
 procedure quami;
 var stellen,hilfsvariable:integer; (* z: erzeugte Zufallszahl *)
-    z,anfangszahl,umfang,zj,quadrat,qumitte,ausgabe:longint; (* zj: ZÑhler der Zufallszahlen *)
+    z,anfangszahl,umfang,zj,quadrat,qumitte,ausgabe:longint; (* zj: Z√§hler der Zufallszahlen *)
     fortschritt,diff:integer; (* Wieviel % der Zahlen wurden erzeugt? *)
     quad,quadmitte,dateiname,kommentar:string;
     dat:text; (* zum Speichern *)
@@ -901,27 +901,27 @@ var stellen,hilfsvariable:integer; (* z: erzeugte Zufallszahl *)
 BEGIN
   clrscr;
   status('Quadratmittengenerator -- Parameter');
-  writeln(' Sie kînnen die Anzahl der Stellen und die Anfangszahl festlegen.');
+  writeln(' Sie k√∂nnen die Anzahl der Stellen und die Anfangszahl festlegen.');
   writeln(' (Die Basis des Zahlensystems ist 10!)');
   writeln(' Der Generator erzeugt ganze Zahlen aus [0; 9].');writeln;
   REPEAT
     stellen:=zahleingabe(9,2,'Geben Sie die Anzahl der Stellen ein (2 oder 4) ',0,2,4,1);
     hilfsvariable:=stellen mod 2
-  UNTIL hilfsvariable=0; (* Sicherstellen, da· es eine gerade Zahl ist *)
+  UNTIL hilfsvariable=0; (* Sicherstellen, da√ü es eine gerade Zahl ist *)
   hilfsvariable:=trunc(exp(stellen*ln(10)))-1; (* 10 hoch 'Stellen' -1 ist maximale Zahl *)
   anfangszahl:=zahleingabe(11,2,'Geben Sie die Anfangszahl ein ',1,1,hilfsvariable,1);
   umfang:=wievielezufaza;
   clrscr;
   status('Quadratmittengenerator -- Erzeugung der Zufallszahlen');
   writeln(' Die Zufallszahlen werden in einer Datei gespeichert.');
-  dateiname:=name_zum_speichern(5,2,'WÑhlen Sie einen Namen fÅr die Datei: ','ZUF');
+  dateiname:=name_zum_speichern(5,2,'W√§hlen Sie einen Namen f√ºr die Datei: ','ZUF');
   GotoXY(2,7);writeln('Geben Sie einen Kommentar zu diesem Generator ein:');
   kommentar:=texteingabe(9,2,'-> ',0,1,75,1,0);
 
   aktuelle_datei:=dateiname;
   zliste_existiert:=1;
   assign(dat,dateiname);
-  rewrite(dat); (* Die Datei zum Speichern wurde angelegt und geîffnet *)
+  rewrite(dat); (* Die Datei zum Speichern wurde angelegt und ge√∂ffnet *)
   datei_kopf(dat,umfang,'Quadratmitten-Generator',kommentar);
 
   (* PROGRAMM DES QUAMI-GENRATORS *)
@@ -935,7 +935,7 @@ BEGIN
     str(quadrat:stellen,quad); (* Quadrat in string umwandeln *)
     while length(quad)<(stellen*2) do
     BEGIN
-      insert('0',quad,1);  (* Nullen ergÑnzen *)
+      insert('0',quad,1);  (* Nullen erg√§nzen *)
     END;
     quadmitte:=copy(quad,(stellen div 2)+1,stellen); (* Mitte des string holen *)
     val(quadmitte,qumitte,hilfsvariable); (* Quadratmitte in Zahl umwandeln *)
@@ -960,7 +960,7 @@ END;
 procedure fibonacci;
 var stellen,hilfsvariable:integer;
     z,n_0,n_1,m:real; (* z: erzeugte Zufallszahl und  die Parameter *)
-    ausgabe,umfang,zj:longint; (* zj: ZÑhler der Zufallszahlen *)
+    ausgabe,umfang,zj:longint; (* zj: Z√§hler der Zufallszahlen *)
     fortschritt,diff:integer; (* Wieviel % der Zahlen wurden erzeugt? *)
     dateiname,kommentar:string;
     dat:text; (* zum Speichern *)
@@ -972,7 +972,7 @@ BEGIN
   writeln('           z   = x + x    (mod M)');
   writeln('            n+1   n   n-1');
   writeln;
-  writeln(' Die Zahlen werden anschlie·end zu Dezimalzahlen modifiziert.');
+  writeln(' Die Zahlen werden anschlie√üend zu Dezimalzahlen modifiziert.');
   writeln(' Es werden nur ganzzahlige Werte verwendet.');writeln;
   m:=int(realeingabe(12,2,'Geben Sie die Basis M ein: ',1,2,4294967296.0,1));
   n_0:=int(realeingabe(14,2,'Geben Sie x.n   ein: ',1,1,(m-1),1)); (* Zahlen bis m-1 *)
@@ -982,14 +982,14 @@ BEGIN
   clrscr;
   status('Fibonacci-Generator -- Erzeugung der Zufallszahlen');
   writeln(' Die Zufallszahlen werden in einer Datei gespeichert.');
-  dateiname:=name_zum_speichern(5,2,'WÑhlen Sie einen Namen fÅr die Datei: ','ZUF');
+  dateiname:=name_zum_speichern(5,2,'W√§hlen Sie einen Namen f√ºr die Datei: ','ZUF');
   GotoXY(2,7);writeln('Geben Sie einen Kommentar zu diesem Generator ein:');
   kommentar:=texteingabe(9,2,'-> ',0,1,75,1,0);
 
   aktuelle_datei:=dateiname;
   zliste_existiert:=1;
   assign(dat,dateiname);
-  rewrite(dat); (* Die Datei zum Speichern wurde angelegt und geîffnet *)
+  rewrite(dat); (* Die Datei zum Speichern wurde angelegt und ge√∂ffnet *)
   datei_kopf(dat,umfang,'Fibonacci-Generator',kommentar);
 
   (* PROGRAMM DES FIBONACCI-GENERATORS *)
@@ -1024,7 +1024,7 @@ END;
 procedure multiplik;
 var stellen,hilfsvariable:integer;
     z,n,c,m:real; (* z: erzeugte Zufallszahl und die Parameter *)
-    ausgabe,umfang,zj:longint; (* zj: ZÑhler der Zufallszahlen *)
+    ausgabe,umfang,zj:longint; (* zj: Z√§hler der Zufallszahlen *)
     fortschritt,diff:integer; (* Wieviel % der Zahlen wurden erzeugt? *)
     dateiname,kommentar:string;
     dat:text; (* zum Speichern *)
@@ -1036,7 +1036,7 @@ BEGIN
   writeln('           z   = c x    (mod M)');
   writeln('            n+1     n');
   writeln;
-  writeln(' Die Zahlen werden anschlie·end zu Dezimalzahlen modifiziert.');
+  writeln(' Die Zahlen werden anschlie√üend zu Dezimalzahlen modifiziert.');
   writeln(' Es werden nur ganzzahlige Werte verwendet.');writeln;
   m:=int(realeingabe(12,2,'Geben Sie die Basis M ein: ',1,2,4294967296.0,1));
   c:=int(realeingabe(14,2,'Geben Sie c   ein: ',1,2,(m-1),1)); (* Zahlen bis m-1 *)
@@ -1046,14 +1046,14 @@ BEGIN
   clrscr;
   status('Multiplikativer Generator -- Erzeugung der Zufallszahlen');
   writeln(' Die Zufallszahlen werden in einer Datei gespeichert.');
-  dateiname:=name_zum_speichern(5,2,'WÑhlen Sie einen Namen fÅr die Datei: ','ZUF');
+  dateiname:=name_zum_speichern(5,2,'W√§hlen Sie einen Namen f√ºr die Datei: ','ZUF');
   GotoXY(2,7);writeln('Geben Sie einen Kommentar zu diesem Generator ein:');
   kommentar:=texteingabe(9,2,'-> ',0,1,75,1,0);
 
   aktuelle_datei:=dateiname;
   zliste_existiert:=1;
   assign(dat,dateiname);
-  rewrite(dat); (* Die Datei zum Speichern wurde angelegt und geîffnet *)
+  rewrite(dat); (* Die Datei zum Speichern wurde angelegt und ge√∂ffnet *)
   datei_kopf(dat,umfang,'multiplikativen Generator',kommentar);
 
   (* PROGRAMM DES MULTIPLIKATIVEN GENERATORS *)
@@ -1087,7 +1087,7 @@ END;
 procedure gemischt;
 var stellen,hilfsvariable:integer;
     z,n,a,b,m:real; (* z: erzeugte Zufallszahl und die Parameter *)
-    ausgabe,umfang,zj:longint; (* zj: ZÑhler der Zufallszahlen *)
+    ausgabe,umfang,zj:longint; (* zj: Z√§hler der Zufallszahlen *)
     fortschritt,diff:integer; (* Wieviel % der Zahlen wurden erzeugt? *)
     dateiname,kommentar:string;
     dat:text; (* zum Speichern *)
@@ -1099,7 +1099,7 @@ BEGIN
   writeln('           z   = a x + b   (mod M)');
   writeln('            n+1     n');
   writeln;
-  writeln(' Die Zahlen werden anschlie·end zu Dezimalzahlen modifiziert.');
+  writeln(' Die Zahlen werden anschlie√üend zu Dezimalzahlen modifiziert.');
   writeln(' Es werden nur ganzzahlige Werte verwendet.');writeln;
   m:=int(realeingabe(12,2,'Geben Sie die Basis M ein: ',1,2,4294967296.0,1));
   a:=int(realeingabe(14,2,'Geben Sie a   ein: ',1,1,(m-1),1)); (* Zahlen bis m-1 *)
@@ -1110,14 +1110,14 @@ BEGIN
   clrscr;
   status('Gemischter Generator -- Erzeugung der Zufallszahlen');
   writeln(' Die Zufallszahlen werden in einer Datei gespeichert.');
-  dateiname:=name_zum_speichern(5,2,'WÑhlen Sie einen Namen fÅr die Datei: ','ZUF');
+  dateiname:=name_zum_speichern(5,2,'W√§hlen Sie einen Namen f√ºr die Datei: ','ZUF');
   GotoXY(2,7);writeln('Geben Sie einen Kommentar zu diesem Generator ein:');
   kommentar:=texteingabe(9,2,'-> ',0,1,75,1,0);
 
   aktuelle_datei:=dateiname;
   zliste_existiert:=1;
   assign(dat,dateiname);
-  rewrite(dat); (* Die Datei zum Speichern wurde angelegt und geîffnet *)
+  rewrite(dat); (* Die Datei zum Speichern wurde angelegt und ge√∂ffnet *)
   datei_kopf(dat,umfang,'gemischten Generator',kommentar);
 
   (* PROGRAMM DES GEMISCHTEN GENERATORS *)
@@ -1151,20 +1151,20 @@ procedure gen_auswahl;
 var wahl:integer;
 BEGIN
   clrscr;
-  status('Zufallsgenerator-Typ auswÑhlen');
-  writeln('       WÑhlen Sie eine der allgemeinen Formen, deren Parameter Sie');
-  writeln('       anschlie·end festlegen kînnen.');
+  status('Zufallsgenerator-Typ ausw√§hlen');
+  writeln('       W√§hlen Sie eine der allgemeinen Formen, deren Parameter Sie');
+  writeln('       anschlie√üend festlegen k√∂nnen.');
   writeln;
   writeln;
-  writeln('   1   VerlÑngerung von Folgen          Seite  6');
+  writeln('   1   Verl√§ngerung von Folgen          Seite  6');
   writeln('   2   Quadratmittengenerator                  7');
   writeln('   3   Fibonacci-Generator                     9');
   writeln('   4   Multiplikativer Generator               9');
   writeln('   5   Gemischter Generator                    9');
   writeln('   6   RANDOM von TurboPascal                 17');writeln;
-  writeln('   7   zurÅck ins HauptmenÅ');writeln;
-  wahl:=zahleingabe(19,8,'WÑhlen Sie: ',0,1,7,1);
-  definiert:=1;    (* Ich gehe davon aus, da· ein Generator definiert wird *)
+  writeln('   7   zur√ºck ins Hauptmen√º');writeln;
+  wahl:=zahleingabe(19,8,'W√§hlen Sie: ',0,1,7,1);
+  definiert:=1;    (* Ich gehe davon aus, da√ü ein Generator definiert wird *)
   case wahl of
     1: folgen;
     2: quami;
@@ -1174,7 +1174,7 @@ BEGIN
     6: tubo_random;
     7: definiert:=0; (* doch nicht... *)
   end;
-  (* ... also zurÅck ins HauptmenÅ *)
+  (* ... also zur√ºck ins Hauptmen√º *)
 END;
 
 (* Diese Prozedur wandelt eine Zahlenliste in eine Tabelle (z.B. zum Drucken) um *)
@@ -1186,12 +1186,12 @@ var name,neuname,hilfsvar,txt,generator,kommentar:string;
 BEGIN
   clrscr;
   status('Zufallszahlenliste in Tabelle umwandeln');
-  name:=name_zum_laden('WÑhlen Sie eine Zufallszahlenliste','ZUF');
+  name:=name_zum_laden('W√§hlen Sie eine Zufallszahlenliste','ZUF');
   clrscr;
   hilfsvar:=concat('Liste ',name,' in Tabelle umwandeln');
   status(hilfsvar);
 
-  write(' Datei wird geîffnet... ');
+  write(' Datei wird ge√∂ffnet... ');
   assign(dat,name);
   reset(dat);
   readln(dat,txt);
@@ -1199,7 +1199,7 @@ BEGIN
   BEGIN
     writeln('Falsche Datei!');
   END else
-  BEGIN (* ich rÅcke nicht weiter ein: ELSE-Teil vom IF-Block *)
+  BEGIN (* ich r√ºcke nicht weiter ein: ELSE-Teil vom IF-Block *)
 
   writeln('OK.');
   readln(dat,txt);
@@ -1212,13 +1212,13 @@ BEGIN
   writeln(' ',kommentar);
 
   writeln;
-  writeln(' Sie kînnen die Liste nun in eine Tabelle mit folgendem Format umwandeln:');
+  writeln(' Sie k√∂nnen die Liste nun in eine Tabelle mit folgendem Format umwandeln:');
   writeln;
   writeln(' xxxx xxxx xxxx usw. bis an den Seitenrand');
   writeln(' xxxx xxxx xxxx usw.');
   writeln(' usw.');
   writeln;
-  tupel:=zahleingabe(16,2,'Wieviele Ziffern sollen zu einer Gruppe zusammengefa·t werden? ',1,1,10,1);
+  tupel:=zahleingabe(16,2,'Wieviele Ziffern sollen zu einer Gruppe zusammengefa√üt werden? ',1,1,10,1);
   neuname:=name;
   delete(neuname,length(name)-3,4);
   neuname:=concat(neuname,'.TAB');
@@ -1249,14 +1249,14 @@ BEGIN
     if tupeli>tupel then
     BEGIN
       tupeli:=1;
-      if (stelle+tupel)>79 then (* Wenn das nÑchste Tupel nicht mehr in die Zeile pa·t *)
+      if (stelle+tupel)>79 then (* Wenn das n√§chste Tupel nicht mehr in die Zeile pa√üt *)
       BEGIN
         writeln(tab,' '); (* writeLN und Leerzeichen *)
         stelle:=1;
       END else
       BEGIN
         write(tab,' '); (* ansonsten nur ein Leerzeichen *)
-        inc(stelle); (* Leerzeichen mitzÑhlen *)
+        inc(stelle); (* Leerzeichen mitz√§hlen *)
       END;
     END;
     readln(dat,zahl); (* Zahl einlesen *)
@@ -1281,27 +1281,27 @@ function menue:integer;
 BEGIN
   writeln;
   writeln('       Definieren Sie einen Generator und erzeugen Sie Zufallszahlen, um');
-  writeln('       sie anschlie·end mit einer Testmethode zu ÅberprÅfen.');writeln;
+  writeln('       sie anschlie√üend mit einer Testmethode zu √ºberpr√ºfen.');writeln;
   writeln('   1   Einen Generator definieren und Zahlen erzeugen');writeln;
   writeln('   2   Eine Liste von Zahlen auf Gleichverteilung testen (',chq,'-Test)');writeln;
-  writeln('   3   Eine Liste von Zahlen auf UnabhÑngigkeit testen (Poker-Test)');writeln;
+  writeln('   3   Eine Liste von Zahlen auf Unabh√§ngigkeit testen (Poker-Test)');writeln;
   writeln('   4   Eine Liste gespeicherter Zahlen in eine Tabelle umwandeln');writeln;
   writeln('   5   Das Programm beenden');writeln;
-  menue:=zahleingabe(19,8,'WÑhlen Sie: ',0,1,5,1);
+  menue:=zahleingabe(19,8,'W√§hlen Sie: ',0,1,5,1);
 END;
 
-(* HAUPTPROGRAMM bzw. HAUPTMENö *)
+(* HAUPTPROGRAMM bzw. HAUPTMEN√ú *)
 BEGIN
   ende:=0;
   aktuelle_datei:='';
   zliste_existiert:=0;
   clrscr;
-  begrues; (* BegrÅ·ungsbildschirm *)
+  begrues; (* Begr√º√üungsbildschirm *)
   clrscr;
 
 REPEAT (* wird beim Beenden verlassen *)
 
-  (* PrÅfen, ob es Åberhaupt eine ZUF-Datei gibt *)
+  (* Pr√ºfen, ob es √ºberhaupt eine ZUF-Datei gibt *)
   (* Wenn es keine gibt, wird das Testen deaktivert *)
   zuf_exist:=dat_pruefen('ZUF');
   if zuf_exist=0 then
@@ -1315,12 +1315,12 @@ REPEAT (* wird beim Beenden verlassen *)
     END;
   END else
   BEGIN
-    stat:='Es gibt keine Zufallszahlendatei. MenÅpunkte 2, 3 und 4 sind inaktiv!';
+    stat:='Es gibt keine Zufallszahlendatei. Men√ºpunkte 2, 3 und 4 sind inaktiv!';
   END;
 
   clrscr;
   status(stat);
-  aktion:=menue; (* HauptmenÅ anzeigen *)
+  aktion:=menue; (* Hauptmen√º anzeigen *)
   if zuf_exist=0 then
   BEGIN
   case aktion of
@@ -1328,11 +1328,11 @@ REPEAT (* wird beim Beenden verlassen *)
     2: if dat_pruefen('ZUF')=0 then chiquad;
     3: if dat_pruefen('ZUF')=0 then poker;
     4: if dat_pruefen('ZUF')=0 then zliste_zu_tabelle;
-    5: ende:=1;        (* Hier hatte Windows mich einmal Åberlistet: *)
-  end;                 (* Wechselt man aus dem MenÅ in den Dateimanager *)
-  END else             (* von Windows und lîscht alle ZUF-Dateien, *)
-  BEGIN                (* stÅrzt das Programm hoffnungslos ab. Jetzt *)
-  case aktion of       (* prÅfe ich nochmal KURZ vorher, ob die *)
+    5: ende:=1;        (* Hier hatte Windows mich einmal √ºberlistet: *)
+  end;                 (* Wechselt man aus dem Men√º in den Dateimanager *)
+  END else             (* von Windows und l√∂scht alle ZUF-Dateien, *)
+  BEGIN                (* st√ºrzt das Programm hoffnungslos ab. Jetzt *)
+  case aktion of       (* pr√ºfe ich nochmal KURZ vorher, ob die *)
     1: gen_auswahl;    (* Dateien existieren. *)
     5: ende:=1;
     (* keine ZUF-Datei, also Testen deaktiviert *)
